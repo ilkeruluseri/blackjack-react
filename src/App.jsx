@@ -38,6 +38,17 @@ function App() {
   return (
     <>
       <div>
+      <h1>Blackjack</h1>
+      <h2>Round: {game.round}</h2>
+      </div>
+
+      <div>
+        <h2>Player1 Score: {game.player1Score}</h2>
+        <h2>Player2 Score: {game.player2Score}</h2>
+        <h2>Dealer Score: {game.dealerScore}</h2>
+      </div>
+
+      <div>
         <h2>Player1 Hand: {game.player1Hand.map(card => card.toString()).join(', ')},
            Value: { game.calculateHandValue(game.player1Hand) }
         </h2>
