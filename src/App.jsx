@@ -3,6 +3,7 @@ import { Deck } from "./game/Deck.js";
 import { Game } from "./game/Game.js";
 import './App.css'
 
+
 function App() {
   const [game, SetGame] = useState(null);
 
@@ -16,6 +17,19 @@ function App() {
     console.log("Game before set:", game); // will log null first
   }, [game]);
   
+
+  function NextRoundButton() {
+    if (game.roundOver) {
+      return (
+        <button onClick={() => {
+          game.nextRound();
+          SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
+        }
+        }>Next Round</button>
+      );
+    }
+    return null;
+    }
 
   if (!game) {
     return <h2>Loading game...</h2>;
@@ -59,6 +73,7 @@ function App() {
         <h2>Dealer Hand: {game.dealerHand.map(card => card.toString()).join(', ')},
            Value: { game.calculateHandValue(game.dealerHand) }
         </h2>
+        <NextRoundButton />
         <h2>The cards left: <br/>
           {game.deck.toString()}
         </h2>

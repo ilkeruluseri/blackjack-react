@@ -15,6 +15,7 @@ export class Game {
         this.playersDone = [false, false, false]; // Track if players are done, 0: player1, 1: player2, 2: dealer
         this.playersBust = [false, false, false]; // Track if players are bust
         this.round = 1; // Track the current round
+        this.roundOver = false; // Track if the round is over
     }
 
     startGame(numOfDecks = 1) {
@@ -118,7 +119,7 @@ export class Game {
         if (this.playersBust[0] && this.playersBust[1] && !this.playersBust[2]) {
             this.dealerScore += 1; // Dealer wins
             console.log('Dealer wins!');
-            this.nextRound();
+            this.endRound();
         }
 
         if (this.deck.cardsLeft() === 0) {
@@ -128,17 +129,23 @@ export class Game {
 
         if ((this.playersDone[0] || this.playersBust[0]) && (this.playersDone[1] || this.playersBust[1])) { // Both players are done/bust
             this.roundEnding(); // End the round
-            this.nextRound(); // Move to the next round
+            this.endRound(); // Move to the next round
         }
         
     }
 
+    endRound() {
+        this.roundOver = true; // Mark the round as over
+    }
+
     nextRound() {
         this.round += 1;
+        this.roundOver = false; // Reset round over status
         this.playersDone = [false, false, false]; // Reset players' done status
         this.playersBust = [false, false, false]; // Reset players' bust status
         this.dealInitialCards(); // Deal new cards to players and dealer
     }
+
 
     dealerPlay() {
         while (this.calculateHandValue(this.dealerHand) < 17) {
