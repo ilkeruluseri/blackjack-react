@@ -4,14 +4,10 @@ export class Card {
         this.suit = suit;
     }
 
-    getValue(currentValue = 1) {
-        if (this.rank === 'A') {
-            return currentValue + 11 <= 21 ? 11 : 1; // 11 if it doesn't exceed 21, otherwise 1
-        } else if (this.rank === 'K' || this.rank === 'Q' || this.rank === 'J') {
-            return 10;
-        } else {
-            return parseInt(this.rank, 10); // Convert rank to integer
-        }
+    getValue() {
+        if (this.rank === 'A') return 11;
+        if (['K', 'Q', 'J'].includes(this.rank)) return 10;
+        return parseInt(this.rank, 10);
     }
 
     toString() {

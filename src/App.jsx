@@ -1,42 +1,66 @@
 import { useState, useEffect } from 'react'
 import { Deck } from "./game/Deck.js";
+import { Game } from "./game/Game.js";
 import './App.css'
 
 function App() {
-  const [playerHand, setPlayerHand] = useState([]);
-  const [dealerHand, setDealerHand] = useState([]);
-  const [deck, setDeck] = useState([]);
+  const [game, SetGame] = useState(null);
 
   useEffect(() => {
-    const deck = new Deck(1); // Create a new deck with 1 standard deck
-    console.log(deck.toString()); // Log the deck to the console
-    setDeck(deck); // Set the deck in state
-
-    setPlayerHand([deck.drawCard(), deck.drawCard()]);
-    setDealerHand([deck.drawCard(), deck.drawCard()]);
+    const newGame = new Game();
+    newGame.startGame(1);
+    SetGame(newGame); // remember to call setGame to update the state
   }, []);
+
+  useEffect(() => {
+    console.log("Game before set:", game); // will log null first
+  }, [game]);
+  
+
+  if (!game) {
+    return <h2>Loading game...</h2>;
+  }
 
   return (
     <>
       <div>
-        <h2>Player Hand: {playerHand.map(card => card.toString()).join(', ')},
-           Value: {
-           playerHand.length === 2
-           ? playerHand[0].getValue() +
-             playerHand[1].getValue()
-           : 'N/A'
-           }
+        <h2>Player1 Hand: {game.player1Hand.map(card => card.toString()).join(', ')},
+           Value: { game.calculateHandValue(game.player1Hand) }
         </h2>
-        <h2>Dealer Hand: {dealerHand.map(card => card.toString()).join(', ')},
-           Value: {
-            dealerHand.length === 2
-            ? dealerHand[0].getValue() +
-              dealerHand[1].getValue()
-            : 'N/A'
-           }   
+        <button onClick={() => {
+          game.hit(0);
+          SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
+
+        }
+        }>Player1 Hit</button>
+        <button onClick={() => {
+          game.stand(0);
+          SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
+ 
+        }
+        }>Player1 Stand</button>
+
+
+        <h2>Player2 Hand: {game.player2Hand.map(card => card.toString()).join(', ')},
+           Value: { game.calculateHandValue(game.player2Hand) }
+        </h2>
+        <button onClick={() => {
+          game.hit(1);
+          SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
+ 
+        }
+        }>Player2 Hit</button>
+        <button onClick={() => {
+          game.stand(1);
+          SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
+ 
+        }
+        }>Player2 Stand</button>
+        <h2>Dealer Hand: {game.dealerHand.map(card => card.toString()).join(', ')},
+           Value: { game.calculateHandValue(game.dealerHand) }
         </h2>
         <h2>The cards left: <br/>
-          {deck.toString()}
+          {game.deck.toString()}
         </h2>
       </div>
     </>
