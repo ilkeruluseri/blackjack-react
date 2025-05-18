@@ -23,7 +23,7 @@ function App() {
       return (
         <div>
         <h2 className="text-lg font-semibold mb-2 text-center">{game.roundWinner} takes the round!</h2> 
-          <button className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded" onClick={() => {
+          <button className="btn-green" onClick={() => {
             game.nextRound();
             SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
           }
@@ -47,7 +47,7 @@ function App() {
       </div>
   
       {/* Round and Scores Box */}
-      <div className="flex justify-center items-center gap-10 bg-gray-800 p-4 rounded-xl shadow-md max-w-4xl mx-auto mb-6">
+      <div className="flex justify-center items-center gap-10 bg-gray-800 p-8 rounded-xl shadow-md max-w-4xl mx-auto mb-6">
         <div className="text-3xl font-semibold">Round: {game.round}</div>
         <div className="text-xl space-y-1">
           <h2>Player1 Score: {game.player1Score}</h2>
@@ -57,7 +57,7 @@ function App() {
       </div>
   
       {/* Hands Section */}
-      <div className="flex justify-center gap-6 bg-gray-800 p-6 rounded-xl shadow-md max-w-6xl mx-auto">
+      <div className="flex justify-center gap-6 bg-gray-800 px-10 py-20 rounded-xl shadow-md max-w-6xl mx-auto">
         {/* Player 1 */}
         <div className="flex flex-col items-center">
           <h2 className="text-lg font-semibold mb-2 text-center">
@@ -67,7 +67,7 @@ function App() {
           </h2>
           <div className="space-x-2 mt-2">
             <button 
-              className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded"
+              className="btn-blue"
               onClick={() => {
                 game.hit(0);
                 SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
@@ -76,7 +76,7 @@ function App() {
               Player1 Hit
             </button>
             <button 
-              className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded"
+              className="btn-green"
               onClick={() => {
                 game.stand(0);
                 SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
@@ -96,7 +96,7 @@ function App() {
           </h2>
           <div className="space-x-2 mt-2">
             <button 
-              className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded"
+              className="btn-blue"
               onClick={() => {
                 game.hit(1);
                 SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
@@ -105,7 +105,7 @@ function App() {
               Player2 Hit
             </button>
             <button 
-              className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded"
+              className="btn-green"
               onClick={() => {
                 game.stand(1);
                 SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));

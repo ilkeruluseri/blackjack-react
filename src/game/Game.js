@@ -166,151 +166,59 @@ export class Game {
             console.log('Dealer busted!');
         }
     }
-    
 
     roundEnding() {
-        this.dealerPlay(); // Dealer plays
-        // At this point, all players are done, dealer has played and may have busted
-
-        let player1HandValue = this.calculateHandValue(this.player1Hand);
-        let player2HandValue = this.calculateHandValue(this.player2Hand);
-        let dealerHandValue = this.calculateHandValue(this.dealerHand);
-
-        // Calculate winner
-        if (!this.playersBust[0] && !this.playersBust[1] && !this.playersBust[2]) { // no one has busted
-            if (player1HandValue > player2HandValue && player1HandValue > dealerHandValue) {
-                this.player1Score += 1; // Player 1 wins
-                console.log('Player 1 wins!');
-                this.roundWinner = "Player1";
-            } else if (player2HandValue > player1HandValue && player2HandValue > dealerHandValue) {
-                this.player2Score += 1; // Player 2 wins
-                console.log('Player 2 wins!');
-                this.roundWinner = "Player2";
-            } else if (dealerHandValue > player1HandValue && dealerHandValue > player2HandValue) {
-                this.dealerScore += 1; // Dealer wins
-                console.log('Dealer wins!');
-                this.roundWinner = "Dealer";
-            } else { // Scores tied
-                if (player1HandValue === player2HandValue && player1HandValue === dealerHandValue) {
-                    if (this.player1Hand.length < this.player2Hand.length && this.player1Hand.length < this.dealerHand.length) {
-                        this.player1Score += 1; // Player 1 wins
-                        console.log('Player 1 wins!');
-                        this.roundWinner = "Player1";
-                    } else if (this.player2Hand.length < this.player1Hand.length && this.player2Hand.length < this.dealerHand.length) {
-                        this.player2Score += 1; // Player 2 wins
-                        console.log('Player 2 wins!');
-                        this.roundWinner = "Player2";
-                    } else { //player 1 and player 2 have the same number of cards
-                        this.dealerScore += 1; // Dealer wins
-                        console.log('Dealer wins!');
-                        this.roundWinner = "Dealer";
-                    }
-                }
-                else if (player1HandValue === player2HandValue) {
-                    if (this.player1Hand.length < this.player2Hand.length) {
-                        this.player1Score += 1; // Player 1 wins
-                        console.log('Player 1 wins!');
-                        this.roundWinner = "Player1";
-                    } else if (this.player2Hand.length < this.player1Hand.length) {
-                        this.player2Score += 1; // Player 2 wins
-                        console.log('Player 2 wins!');
-                        this.roundWinner = "Player2";
-                    } else { //player 1 and player 2 have the same number of cards
-                        this.dealerScore += 1; // Dealer wins
-                        console.log('Dealer wins!');
-                        this.roundWinner = "Dealer";
-                    }
-                } else if (player1HandValue === dealerHandValue) {
-                    if (this.player1Hand.length < this.dealerHand.length) {
-                        this.player1Score += 1; // Player 1 wins
-                        console.log('Player 1 wins!');
-                        this.roundWinner = "Player1";
-                    } else if (this.dealerHand.length < this.player1Hand.length) {
-                        this.dealerScore += 1; // Dealer wins
-                        console.log('Dealer wins!');
-                        this.roundWinner = "Dealer";
-                    } else { //player 1 and dealer have the same number of cards
-                        this.player2Score += 1; // Player 2 wins
-                        console.log('Player 2 wins!');
-                        this.roundWinner = "Player2";
-                    }
-                } else if (player2HandValue === dealerHandValue) {
-                    if (this.player2Hand.length < this.dealerHand.length) {
-                        this.player2Score += 1; // Player 2 wins
-                        console.log('Player 2 wins!');
-                        this.roundWinner = "Player2";
-                    } else if (this.dealerHand.length < this.player2Hand.length) {
-                        this.dealerScore += 1; // Dealer wins
-                        console.log('Dealer wins!');
-                        this.roundWinner = "Dealer";
-                    } else { //player 2 and dealer have the same number of cards
-                        this.player1Score += 1; // Player 1 wins
-                        console.log('Player 1 wins!');
-                        this.roundWinner = "Player1";
-                    }
-                }
-            }
-        } else if (this.playersBust[0] && !this.playersBust[1] && this.playersBust[2]) { // Only Player 1 is bust
-            if (player2HandValue > dealerHandValue) {
-                this.player2Score += 1; // Player 2 wins
-                console.log('Player 2 wins!');
-                this.roundWinner = "Player2";
-            } else if (dealerHandValue > player2HandValue) {
-                this.dealerScore += 1; // Dealer wins
-                console.log('Dealer wins!');
-                this.roundWinner = "Dealer";
-            } else { // Scores tied
-                if (this.player2Hand.length < this.dealerHand.length) {
-                    this.player2Score += 1; // Player 2 wins
-                    console.log('Player 2 wins!');
-                    this.roundWinner = "Player1";
-                } else { //player 2 and dealer have the same number of cards
-                    this.dealerScore += 1; // Player 1 wins
-                    console.log('Dealer wins!');
-                    this.roundWinner = "Dealer";
-                }
-            }
-        } else if (!this.playersBust[0] && this.playersBust[1] && !this.playersBust[2]) { // Only Player 2 is bust
-            if (player1HandValue > dealerHandValue) {
-                this.player1Score += 1; // Player 1 wins
-                console.log('Player 1 wins!');
-                this.roundWinner = "Player1";
-            } else if (dealerHandValue > player1HandValue) {
-                this.dealerScore += 1; // Dealer wins
-                console.log('Dealer wins!');
-                this.roundWinner = "Dealer";
-            } else { // Scores tied
-                if (this.player1Hand.length < this.dealerHand.length) {
-                    this.player1Score += 1; // Player 1 wins
-                    console.log('Player 1 wins!');
-                    this.roundWinner = "Player1";
-                } else { //player 1 and dealer have the same number of cards
-                    this.dealerScore += 1; // Dealer wins
-                    console.log('Dealer wins!');
-                    this.roundWinner = "Dealer";
-                }
-            }
-        } else if (!this.playersBust[0] && !this.playersBust[1] && this.playersBust[2]) { // Only Dealer is bust
-            if (player1HandValue > player2HandValue) {
-                this.player1Score += 1; // Player 1 wins
-                console.log('Player 1 wins!');
-                this.roundWinner = "Player1";
-            } else if (player2HandValue > player1HandValue) {
-                this.player2Score += 1; // Player 2 wins
-                console.log('Player 2 wins!');
-                this.roundWinner = "Player2";
-            } else { // Scores tied
-                if (this.player1Hand.length < this.player2Hand.length) {
-                    this.player1Score += 1; // Player 1 wins
-                    console.log('Player 1 wins!');
-                    this.roundWinner = "Player1";
-                } else { //player 1 and player 2 have the same number of cards
-                    this.player2Score += 1; // Player 2 wins
-                    console.log('Player 2 wins!');
-                    this.roundWinner = "Player2";
-                }
-            }
-        }
+        this.dealerPlay();
+        let winner = this.determineWinner();
+        this.declareWinner(winner);
     }
 
+    determineWinner() {
+        let hands = [this.player1Hand, this.player2Hand, this.dealerHand];
+        let handValues = hands.map(hand => this.calculateHandValue(hand));
+
+        let bestIndex = -1;
+        let bestValue = -1;
+        let bestCardCount = Infinity;
+
+        for (let i = 0; i < hands.length; i++) {
+            const hand = hands[i];
+            const handValue = handValues[i];
+
+            if (this.playersBust[i]) {
+                continue; // Skip if the player is bust
+            }
+
+            if (handValue > bestValue || (handValue === bestValue && hand.length < bestCardCount)) {
+                bestIndex = i;
+                bestValue = handValue;
+                bestCardCount = hand.length;
+            }
+        }
+
+        return bestIndex;
+    }
+
+    declareWinner(player) {
+        switch (player) {
+            case 0:
+                this.player1Score += 1;
+                console.log('Player 1 wins!');
+                this.roundWinner = "Player1";
+                break;
+            case 1:
+                this.player2Score += 1;
+                console.log('Player 2 wins!');
+                this.roundWinner = "Player2";
+                break;
+            case 2:
+                this.dealerScore += 1;
+                console.log('Dealer wins!');
+                this.roundWinner = "Dealer";
+                break;
+            default:
+                console.warn("Invalid player index for winner!");
+                return;
+        }
+    }
 }
