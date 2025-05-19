@@ -228,4 +228,32 @@ export class Game {
                 return;
         }
     }
+
+    getGameWinner() {
+        let maxScore = Math.max(this.player1Score, this.player2Score, this.dealerScore);
+        if (this.player1Score === maxScore && this.player2Score === maxScore) {
+            return "Tie";
+        } else if (this.player1Score === maxScore) {
+            return "Player 1";
+        } else if (this.player2Score === maxScore) {
+            return "Player 2";
+        } else {
+            return "Dealer";
+        }
+    }
+
+    resetGame() {
+        this.player1Hand = [];
+        this.player2Hand = [];
+        this.dealerHand = [];
+        this.gameOver = false;
+        this.player1Score = 0;
+        this.player2Score = 0;
+        this.dealerScore = 0;
+        this.playersDone = [false, false, false];
+        this.playersBust = [false, false, false];
+        this.round = 1;
+        this.roundOver = false;
+        this.roundWinner = null;
+    }
 }

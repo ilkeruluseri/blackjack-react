@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Deck } from "./game/Deck.js";
 import { Game } from "./game/Game.js";
+import GameOverModal from './GameOverModal.jsx';
 import './App.css'
 
 
@@ -153,6 +154,19 @@ function App() {
         }
       </div>
     </div>
+
+    {game.gameOver && (
+      <GameOverModal
+        winner = {game.getGameWinner()}
+        scores = {{player1: game.player1Score, player2: game.player2Score, dealer: game.dealerScore}}
+        onReset = {() => {
+          game.resetGame();
+          game.startGame(1);
+          SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
+        }
+        }
+      />
+    )}
     </>
   );  
 }

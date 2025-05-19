@@ -7,3 +7,7 @@
 .btn-green {
   @apply bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded transition active:scale-95;
 }
+
+.btn-red {
+  @apply bg-red-500 hover:bg-red-600 text-white py-3 px-9 rounded transition active:scale-95;
+}
