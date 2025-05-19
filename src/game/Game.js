@@ -39,6 +39,10 @@ export class Game {
         let aceCount = 0;
     
         for (const card of hand) {
+            if (card == null) {
+                console.warn('Card is null!'); // Handle null card
+                continue; // Skip null cards
+            }
             let cardValue = card.getValue();
             value += cardValue;
             if (card.rank === 'A') aceCount += 1;
@@ -49,7 +53,10 @@ export class Game {
             value -= 10; // Convert an Ace from 11 to 1
             aceCount -= 1;
         }
-    
+        if (value == null) {
+            console.warn('Hand value is null!'); // Handle null value
+            return 0; // Return 0 if hand value is null
+        }
         return value;
     }
     

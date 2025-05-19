@@ -60,11 +60,17 @@ function App() {
       <div className="flex justify-center gap-6 bg-gray-800 px-10 py-20 rounded-xl shadow-md max-w-6xl mx-auto">
         {/* Player 1 */}
         <div className="flex flex-col items-center">
-          <h2 className="text-lg font-semibold mb-2 text-center">
-            Player1 Hand:<br /> 
-            {game.player1Hand.map(card => card.toString()).join(', ')}<br />
-            Value: {game.calculateHandValue(game.player1Hand)}
-          </h2>
+          {game.player1Hand && game.player1Hand.length > 0 ? (
+            <h2 className="text-lg font-semibold mb-2 text-center">
+              Player1 Hand:<br />
+              {game.player1Hand.filter(card => card).map(card => card.toString()).join(', ')}<br />
+              Value: {game.calculateHandValue(game.player1Hand)}
+            </h2>
+            ) : (
+            <h2 className="text-lg font-semibold mb-2 text-center">
+              Hand is empty.
+            </h2>)
+          }
           <div className="space-x-2 mt-2">
             <button 
               className="btn-blue"
@@ -89,11 +95,17 @@ function App() {
   
         {/* Player 2 */}
         <div className="flex flex-col items-center">
-          <h2 className="text-lg font-semibold mb-2 text-center">
-            Player2 Hand:<br />
-            {game.player2Hand.map(card => card.toString()).join(', ')}<br />
-            Value: {game.calculateHandValue(game.player2Hand)}
-          </h2>
+          {game.player2Hand && game.player2Hand.length > 0 ? (
+            <h2 className="text-lg font-semibold mb-2 text-center">
+              Player2 Hand:<br />
+              {game.player2Hand.filter(card => card).map(card => card.toString()).join(', ')}<br />
+              Value: {game.calculateHandValue(game.player2Hand)}
+            </h2>
+            ) : (
+            <h2 className="text-lg font-semibold mb-2 text-center">
+              Hand is empty.
+            </h2>)
+          }
           <div className="space-x-2 mt-2">
             <button 
               className="btn-blue"
@@ -118,18 +130,27 @@ function App() {
   
         {/* Dealer */}
         <div className="flex flex-col items-center">
-          <h2 className="text-lg font-semibold text-center">
-            Dealer Hand:<br />
-            {game.dealerHand.map(card => card.toString()).join(', ')}<br />
-            Value: {game.calculateHandValue(game.dealerHand)}
-          </h2>
+          {game.dealerHand && game.dealerHand.length > 0 ? (
+            <h2 className="text-lg font-semibold mb-2 text-center">
+              Dealer Hand:<br />
+              {game.dealerHand.filter(card => card).map(card => card.toString()).join(', ')}<br />
+              Value: {game.calculateHandValue(game.dealerHand)}
+            </h2>
+            ) : (
+            <h2 className="text-lg font-semibold mb-2 text-center">
+              Hand is empty.
+            </h2>)
+          }
         </div>
       </div>
   
       {/* Deck & Next Round */}
       <div className="text-center mt-6 space-y-4">
         <NextRoundButton />
-        <h2 className="text-lg">The cards left:<br />{game.deck.toString()}</h2>
+        {game.deck.cards.length > 0 ? (
+          <h2 className="text-lg">The cards left:<br />{game.deck.toString()}</h2>) : (
+          <h2 className="text-lg">No cards left in the deck.</h2>)
+        }
       </div>
     </div>
     </>
