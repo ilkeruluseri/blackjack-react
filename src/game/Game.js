@@ -135,6 +135,13 @@ export class Game {
             this.gameOver = true; // No cards left, game over
         }
 
+        // Auto-stand on blackjack
+        if (player1HandValue === 21) {
+            this.stand(0);
+        }
+        if (player2HandValue === 21) {
+            this.stand(1);
+        }
 
         if ((this.playersDone[0] || this.playersBust[0]) && (this.playersDone[1] || this.playersBust[1])) { // Both players are done/bust
             this.roundEnding(); // End the round

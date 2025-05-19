@@ -74,7 +74,8 @@ function App() {
           }
           <div className="space-x-2 mt-2">
             <button 
-              className="btn-blue"
+              className={`btn-blue ${game.playersDone[0] || game.playersBust[0] ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={game.playersDone[0] || game.playersBust[0]}
               onClick={() => {
                 game.hit(0);
                 SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
@@ -83,7 +84,8 @@ function App() {
               Player1 Hit
             </button>
             <button 
-              className="btn-green"
+              className={`btn-green ${game.playersDone[0] || game.playersBust[0] ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={game.playersDone[0] || game.playersBust[0]}
               onClick={() => {
                 game.stand(0);
                 SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
@@ -109,7 +111,8 @@ function App() {
           }
           <div className="space-x-2 mt-2">
             <button 
-              className="btn-blue"
+              className={`btn-blue ${game.playersDone[1] || game.playersBust[1] ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={game.playersDone[1] || game.playersBust[1]}
               onClick={() => {
                 game.hit(1);
                 SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
@@ -118,7 +121,8 @@ function App() {
               Player2 Hit
             </button>
             <button 
-              className="btn-green"
+              className={`btn-green ${game.playersDone[1] || game.playersBust[1] ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={game.playersDone[1] || game.playersBust[1]}
               onClick={() => {
                 game.stand(1);
                 SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
