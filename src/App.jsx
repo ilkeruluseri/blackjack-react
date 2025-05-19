@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     const newGame = new Game();
-    newGame.startGame(1);
+    newGame.startGame(4);
     SetGame(newGame); // remember to call setGame to update the state
   }, []);
 
@@ -23,8 +23,8 @@ function App() {
     if (game.roundOver) {
       return (
         <div>
-        <h2 className="text-lg font-semibold mb-2 text-center">{game.roundWinner} takes the round!</h2> 
-          <button className="btn-green" onClick={() => {
+        <h2 className="text-4xl font-semibold mb-2 text-center">{game.roundWinner} takes the round!</h2> 
+          <button className="btn-next-round text-4xl mt-5" onClick={() => {
             game.nextRound();
             SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
           }
@@ -41,9 +41,9 @@ function App() {
 
   return (
     <>
-    <div className="bg-gray-700 text-white min-h-screen flex flex-col items-center">
+    <div className="bg-gray-700 text-white min-h-screen flex flex-col items-center pt-10">
       {/* Header */}
-      <div className="text-center mt-4">
+      <div className="text-center mt-4 mb-5">
         <h1 className="text-7xl font-bold mb-6">Blackjack</h1>
       </div>
   
@@ -74,7 +74,7 @@ function App() {
           }
           <div className="space-x-2 mt-2">
             <button 
-              className={`btn-blue ${game.playersDone[0] || game.playersBust[0] ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`${(game.playersDone[0] || game.playersBust[0]) ? 'btn-blue-disabled' : 'btn-blue'}`}
               disabled={game.playersDone[0] || game.playersBust[0]}
               onClick={() => {
                 game.hit(0);
@@ -84,7 +84,7 @@ function App() {
               Player1 Hit
             </button>
             <button 
-              className={`btn-green ${game.playersDone[0] || game.playersBust[0] ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`${game.playersDone[0] || game.playersBust[0] ? 'btn-green-disabled' : 'btn-green'}`}
               disabled={game.playersDone[0] || game.playersBust[0]}
               onClick={() => {
                 game.stand(0);
@@ -111,7 +111,7 @@ function App() {
           }
           <div className="space-x-2 mt-2">
             <button 
-              className={`btn-blue ${game.playersDone[1] || game.playersBust[1] ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`${game.playersDone[1] || game.playersBust[1] ? 'btn-blue-disabled' : 'btn-blue'}`}
               disabled={game.playersDone[1] || game.playersBust[1]}
               onClick={() => {
                 game.hit(1);
@@ -121,7 +121,7 @@ function App() {
               Player2 Hit
             </button>
             <button 
-              className={`btn-green ${game.playersDone[1] || game.playersBust[1] ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`${game.playersDone[1] || game.playersBust[1] ? 'btn-green-disabled' : 'btn-green'}`}
               disabled={game.playersDone[1] || game.playersBust[1]}
               onClick={() => {
                 game.stand(1);
@@ -152,10 +152,10 @@ function App() {
       {/* Deck & Next Round */}
       <div className="text-center mt-6 space-y-4">
         <NextRoundButton />
-        {game.deck.cards.length > 0 ? (
+        { /* game.deck.cards.length > 0 ? (
           <h2 className="text-lg">The cards left:<br />{game.deck.toString()}</h2>) : (
           <h2 className="text-lg">No cards left in the deck.</h2>)
-        }
+        */}
       </div>
     </div>
 
@@ -165,7 +165,7 @@ function App() {
         scores = {{player1: game.player1Score, player2: game.player2Score, dealer: game.dealerScore}}
         onReset = {() => {
           game.resetGame();
-          game.startGame(1);
+          game.startGame(4);
           SetGame(Object.assign(Object.create(Object.getPrototypeOf(game)), game));
         }
         }

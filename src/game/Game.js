@@ -32,6 +32,8 @@ export class Game {
         this.player1Hand.push(this.deck.drawCard(), this.deck.drawCard());
         this.player2Hand.push(this.deck.drawCard(), this.deck.drawCard());
         this.dealerHand.push(this.deck.drawCard(), this.deck.drawCard());
+
+        this.calculateGameState();
     }
 
     calculateHandValue(hand) {
@@ -124,23 +126,22 @@ export class Game {
             this.playersBust[2] = true; // Dealer is bust
         }
 
-        if (this.playersBust[0] && this.playersBust[1] && !this.playersBust[2]) {
-            this.dealerScore += 1; // Dealer wins
-            console.log('Dealer wins!')
-            this.roundWinner = 'Dealer';
-            this.endRound();
-        }
-
         if (this.deck.cardsLeft() === 0) {
             this.gameOver = true; // No cards left, game over
         }
 
+         if (this.playersBust[0] && this.playersBust[1] && !this.playersBust[2]) {
+            this.declareWinner(2); // Dealer wins
+            this.endRound();
+            return;
+        }
+
         // Auto-stand on blackjack
         if (player1HandValue === 21) {
-            this.stand(0);
+            this.playersDone[0] = true; // Auto-stand, without function to avoid loop
         }
         if (player2HandValue === 21) {
-            this.stand(1);
+            this.playersDone[1] = true;
         }
 
         if ((this.playersDone[0] || this.playersBust[0]) && (this.playersDone[1] || this.playersBust[1])) { // Both players are done/bust
